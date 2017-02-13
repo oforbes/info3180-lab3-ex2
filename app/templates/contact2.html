@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+
+
+{{ super() }}
+  <style type="text/css">
+    
+  </style>
+{% endblock %}
+
+
+
+{% block main %}
+
+  <h1 class="page-header">Contact</h1>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      
+        <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      
+    {% endif %}
+  {% endwith %}
+  <form method="POST" action="{{ url_for('contact') }}">
+    {{ form.csrf_token }}
+    <div class="text">{{ form.name.label }} {{ form.name(size=20, class="form-control") }}</div><br><br><br>
+    <div class="text">{{ form.email.label }} {{ form.email(size=20, class="form-control", type="email") }}</div><br><br><br>
+    <div class="text">{{ form.subject.label }} {{ form.subject(size=20, class="form-control") }}</div><br><br><br>
+    <div class="textarea">{{ form.message.label }} {{ form.message(size=40, class="form-control") }}</div><br><br><br>
+    <button type="submit" class="butt">Submit</button>
+</form>
+
+{% endblock %}

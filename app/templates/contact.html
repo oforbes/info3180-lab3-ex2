@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+{% block head %} 
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/contact.css') }}"/>
+{% endblock %}
+
+
+
+<h1>Contact Form</h1>
+
+<div class="main">
+    <br>
+    
+    <p>Fill in this form to contact the site owners</p>
+    <br>
+    
+    <form method="POST" action="{{ url_for('contact') }}" name="contact">
+        
+    <p>First name: <span>[Required]</span></p>
+    <p class="inst">Please enter your full name.</p>
+    <input type="text" name="fromname" class="text"><br><br>
+    
+    <p>Email: <span>[Required]</span></p>
+    <p class="inst">Please enter your email.</p>
+    <input type="text" name="toaddr" class="text"><br><br>
+    
+    <p>Subject: <span>[Required]</span></p>
+    <p class="inst">Please enter the subject: for your message.</p>
+    <input type="text" name="subject" class="text"><br><br>
+    
+    <p>Message: <span>[Required]</span></p>
+    <p class="inst">Please enter the message you want to send.</p>
+    <textarea rows="4" cols="50" name="msg"></textarea><br><br>
+    
+    <input type="submit" value="Submit" class="butt">
+</form>
+    
+    
+</div>
+
+
+{% endblock %}

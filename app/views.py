@@ -4,11 +4,11 @@ Jinja2 Documentation:    http://jinja.pocoo.org/2/documentation/
 Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
+import smtplib
 
 from app import app
-from flask import render_template, request, redirect, url_for
-
-
+from flask import render_template, request, redirect, url_for, flash
+from form import ContactForm
 ###
 # Routing for your application.
 ###
@@ -17,12 +17,85 @@ from flask import render_template, request, redirect, url_for
 def home():
     """Render website's home page."""
     return render_template('home.html')
+    
+
 
 
 @app.route('/about/')
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
+    
+   
+@app.route('/contact/',methods=['GET','POST'])
+def contact():
+    user_form = ContactForm()
+    #form = ContactForm(csrf_enabled=False)
+    if request.method=='POST':
+         if user_form.validate() == False:
+            flash('All fields are required.')
+            return render_template('contact2.html',form=user_form)
+
+         else:
+            fromname = user_form.name.data
+            fromaddr = user_form.email.data
+            subject = user_form.subject.data
+            msg = user_form.message.data
+            send_email(fromname,fromaddr,subject,msg)
+            flash("Message was sent")
+            return render_template('home.html')
+            
+    elif request.method=='GET':
+         return render_template('contact2.html', form=user_form)
+   
+def send_email(from_name, from_email, subject, msg):
+    
+    receivers = 'odainef@gmail.com'
+
+    to_name="FinTheGoodSon"
+    message = """From: {} <{}>
+To: {} <{}> 
+Subject: {}
+{}
+""" 
+
+    
+    message_to_send3 = message.format(
+
+                             from_name,
+
+                             from_email,
+
+                             to_name,
+
+                             receivers,
+
+                             subject,
+
+                             msg)
+
+    username = ''
+    password = ''
+   
+    server = smtplib.SMTP('smtp.gmail.com:587')
+    server.starttls()
+    server.login(username, password)
+    server.sendmail(from_email, receivers, message_to_send3)
+   
+    server.quit()
+    
+    
+    
+# Flash errors from the form if validation fails
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field - %s" % (
+                getattr(form, field).label.text,
+                error
+            ))
+    
+
 
 
 ###

@@ -1,0 +1,53 @@
+.bold
+{
+    font-weight: bold;
+}
+
+.main
+{
+    border-top:2px solid black;
+    width:800px;
+    height:600px;
+    margin:15px;
+    
+}
+
+h1
+{
+    margin-left:15px;
+}
+
+span
+{
+    color: red;
+}
+
+.text
+{
+    width:200px;
+    height:25px;
+}
+
+.inst
+{
+    font-size:11px;
+}
+
+.textarea
+{
+    resize:none;
+    width:200px;
+    height: 200px;
+}
+
+.butt
+{
+    height:30px;
+    width:65px;
+    color:white;
+    border: 0;
+    border-radius:3px;
+    background: none;
+    box-shadow:none;
+    background-color: #00B2EE;
+}
